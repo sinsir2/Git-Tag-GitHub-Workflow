@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm install
-      - run: node ./scripts/tag-bump.js
+      - run: node ./.git-tag/tag-bump.js
