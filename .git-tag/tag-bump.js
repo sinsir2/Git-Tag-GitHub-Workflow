@@ -36,8 +36,6 @@ function getLastTag() {
 }
 
 
-
-
 function bumpVersion(lastTag, commitMsg) {
   const version = lastTag.replace(/^v/, "");
   let [major, minor, patch] = version.split(".").map(Number);
