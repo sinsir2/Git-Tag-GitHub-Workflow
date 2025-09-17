@@ -35,29 +35,52 @@ function getLastTag() {
   }
 }
 
-
 function bumpVersion(lastTag, commitMsg) {
   const version = lastTag.replace(/^v/, "");
   let [major, minor, patch] = version.split(".").map(Number);
 
-  const msg = commitMsg.trim();
+  const msg = commitMsg.toLowerCase();
 
-  
-  if (/^breaking/i.test(msg)) {
-	  major++;
-	  minor = 0;
+  if (msg.includes("breaking")) {
+    major++;
+    minor = 0;
     patch = 0;
-  } else if (/^feat/i.test(msg)) {
-	  minor++;
+  } else if (msg.includes("feat")) {
+    minor++;
     patch = 0;
-  } else if (/^fix/i.test(msg)) {
-	  patch++;
+  } else if (msg.includes("fix")) {
+    patch++;
   } else {
-	return null;
+    return null;
   }
 
   return `v${major}.${minor}.${patch}`;
 }
+
+
+
+// function bumpVersion(lastTag, commitMsg) {
+//   const version = lastTag.replace(/^v/, "");
+//   let [major, minor, patch] = version.split(".").map(Number);
+
+//   const msg = commitMsg.trim();
+
+  
+//   if (/^breaking/i.test(msg)) {
+// 	  major++;
+// 	  minor = 0;
+//     patch = 0;
+//   } else if (/^feat/i.test(msg)) {
+// 	  minor++;
+//     patch = 0;
+//   } else if (/^fix/i.test(msg)) {
+// 	  patch++;
+//   } else {
+// 	return null;
+//   }
+
+//   return `v${major}.${minor}.${patch}`;
+// }
 
 
 function createTag(tag) {
