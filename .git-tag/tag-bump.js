@@ -57,6 +57,8 @@ function main() {
   	process.exit(0);
   }
   const lastTag = getLastTag();
+  const commitMsgFile = process.argv[2];
+  const commitMsg = fs.readFileSync(commitMsgFile, "utf8").trim();
   const newTag = bumpVersion(lastTag, commitMsg);
   if (newTag) {
     createTag(newTag);
