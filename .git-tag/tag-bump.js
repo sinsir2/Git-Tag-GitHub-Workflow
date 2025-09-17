@@ -15,35 +15,26 @@ function hasCommits() {
   }
 }
 
-// function getLastTag() {
-//   try {
-//     return run("git describe --tags --abbrev=0");
-//   } catch {
-//     return "v0.0.0";
-//   }
-// }
-
 function getLastTag() {
   try {
-    const tags = run("git tag --list").split("\n").filter(Boolean);
+    const tags = run("git tag --list").split("\n");
+    if (!tags.length) return "v0.0.0";
 
-    if (tags.length === 0) return "v0.0.0";
-
-    const sorted = tags.sort((a, b) => {
+    return tags.reduce((max, tag) => {
       const parse = v => v.replace(/^v/, "").split(".").map(Number);
-      const [aMajor, aMinor, aPatch] = parse(a);
-      const [bMajor, bMinor, bPatch] = parse(b);
+      const [m1, n1, p1] = parse(max);
+      const [m2, n2, p2] = parse(tag);
 
-      if (aMajor !== bMajor) return bMajor - aMajor;
-      if (aMinor !== bMinor) return bMinor - aMinor;
-      return bPatch - aPatch;
-    });
-
-    return sorted[0];
+      if (m2 > m1) return tag;
+      if (m2 === m1 && n2 > n1) return tag;
+      if (m2 === m1 && n2 === n1 && p2 > p1) return tag;
+      return max;
+    }, tags[0]);
   } catch {
     return "v0.0.0";
   }
 }
+
 
 
 
