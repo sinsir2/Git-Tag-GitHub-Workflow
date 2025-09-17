@@ -17,8 +17,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: |
-          git fetch --tags
-          git tag --list
       - run: npm install
       - run: node ./.git-tag/tag-bump.js
