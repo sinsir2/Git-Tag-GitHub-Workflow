@@ -67,12 +67,13 @@ function createTag(tag) {
 
 
 function main() {
-  console.log("hello");
   if (!hasCommits()) {
     console.log("has no commits")
   }
   const lastTag = getLastTag();
+  console.log("last tag: " + lastTag)
   const commitMsg = run("git log -1 --pretty=%B").trim();
+  console.log("last commitMsg: " + commitMsg)
   const newTag = bumpVersion(lastTag, commitMsg);
   if (newTag) {
     createTag(newTag);
