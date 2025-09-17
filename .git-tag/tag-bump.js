@@ -67,6 +67,7 @@ function createTag(tag) {
 
 
 function main() {
+  console.log("hello");
   if (!hasCommits()) {
     console.log("has no commits")
   }
