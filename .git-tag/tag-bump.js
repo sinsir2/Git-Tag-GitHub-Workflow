@@ -25,7 +25,21 @@ function hasCommits() {
 
 function getLastTag() {
   try {
-    return run("git tag --sort=-creatordate | head -n 1");
+    const tags = run("git tag --list").split("\n").filter(Boolean);
+
+    if (tags.length === 0) return "v0.0.0";
+
+    const sorted = tags.sort((a, b) => {
+      const parse = v => v.replace(/^v/, "").split(".").map(Number);
+      const [aMajor, aMinor, aPatch] = parse(a);
+      const [bMajor, bMinor, bPatch] = parse(b);
+
+      if (aMajor !== bMajor) return bMajor - aMajor;
+      if (aMinor !== bMinor) return bMinor - aMinor;
+      return bPatch - aPatch;
+    });
+
+    return sorted[0];
   } catch {
     return "v0.0.0";
   }
