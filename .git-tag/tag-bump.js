@@ -17,7 +17,6 @@ function hasCommits() {
 
 function getLastTag() {
   try {
-    run(`git pull`);
     return run("git describe --tags --abbrev=0");
   } catch {
     return "v0.0.0";
