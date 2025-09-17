@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync } from "child_process";
-const fs = require("fs");
+import fs from "fs";
 
 function run(cmd) {
   return execSync(cmd, { encoding: "utf8" }).trim();
