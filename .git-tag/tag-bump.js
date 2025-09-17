@@ -23,6 +23,7 @@ function getLastTag() {
   }
 }
 
+
 function bumpVersion(lastTag, commitMsg) {
   const version = lastTag.replace(/^v/, "");
   let [major, minor, patch] = version.split(".").map(Number);
@@ -49,6 +50,7 @@ function bumpVersion(lastTag, commitMsg) {
 
 function createTag(tag) {
   run(`git tag ${tag}`);
+  run(`git push origin ${tag}`);
 }
 
 
