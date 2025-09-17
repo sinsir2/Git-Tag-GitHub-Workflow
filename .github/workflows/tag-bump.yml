@@ -1,4 +1,6 @@
 name: Tag Bump
+permissions:
+  contents: write
 
 run-name: ${{ github.actor }} triggers tag version bump
 
