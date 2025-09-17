@@ -39,48 +39,30 @@ function bumpVersion(lastTag, commitMsg) {
   const version = lastTag.replace(/^v/, "");
   let [major, minor, patch] = version.split(".").map(Number);
 
-  const msg = commitMsg.toLowerCase();
+  const msg = commitMsg.trim();
 
-  if (msg.includes("breaking")) {
-    major++;
-    minor = 0;
+  const mergePrefixMatch = msg.match(/^Merge pull request #\d+ from [^\s]+\/(.+)/i);
+  if (mergePrefixMatch) {
+    msg = mergePrefixMatch[1].trim();
+  }
+
+  const effectiveMsg = msg.toLowerCase();
+  
+  if (/^breaking/i.test(effectiveMsg)) {
+	  major++;
+	  minor = 0;
     patch = 0;
-  } else if (msg.includes("feat")) {
-    minor++;
+  } else if (/^feat/i.test(effectiveMsg)) {
+	  minor++;
     patch = 0;
-  } else if (msg.includes("fix")) {
-    patch++;
+  } else if (/^fix/i.test(effectiveMsg)) {
+	  patch++;
   } else {
-    return null;
+	return null;
   }
 
   return `v${major}.${minor}.${patch}`;
 }
-
-
-
-// function bumpVersion(lastTag, commitMsg) {
-//   const version = lastTag.replace(/^v/, "");
-//   let [major, minor, patch] = version.split(".").map(Number);
-
-//   const msg = commitMsg.trim();
-
-  
-//   if (/^breaking/i.test(msg)) {
-// 	  major++;
-// 	  minor = 0;
-//     patch = 0;
-//   } else if (/^feat/i.test(msg)) {
-// 	  minor++;
-//     patch = 0;
-//   } else if (/^fix/i.test(msg)) {
-// 	  patch++;
-//   } else {
-// 	return null;
-//   }
-
-//   return `v${major}.${minor}.${patch}`;
-// }
 
 
 function createTag(tag) {
