@@ -15,13 +15,22 @@ function hasCommits() {
   }
 }
 
+// function getLastTag() {
+//   try {
+//     return run("git describe --tags --abbrev=0");
+//   } catch {
+//     return "v0.0.0";
+//   }
+// }
+
 function getLastTag() {
   try {
-    return run("git describe --tags --abbrev=0");
+    return run("git tag --sort=-creatordate | head -n 1");
   } catch {
     return "v0.0.0";
   }
 }
+
 
 
 function bumpVersion(lastTag, commitMsg) {
