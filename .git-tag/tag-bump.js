@@ -41,10 +41,12 @@ function bumpVersion(lastTag, commitMsg) {
 
   let msg = commitMsg.trim();
 
-  const mergePrefixMatch = msg.match(/^Merge pull request #\d+ from [^\s]+\/(.+)/i);
+  const mergePrefixMatch = msg.match(/^(Merge pull request #\d+ from [^\s]+\/[^\n]+)\n([\s\S]+)/i);
+  console.log(mergePrefixMatch);
   if (mergePrefixMatch) {
     msg = mergePrefixMatch[1].trim();
   }
+  console.log("Commit message checked: " + msg);
 
   msg = msg.toLowerCase();
   
