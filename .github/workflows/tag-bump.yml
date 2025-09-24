@@ -3,11 +3,11 @@ name: Tag Bump
 permissions:
   contents: write
 
-on:
-  workflow_run:
-    workflows: ["Unit Tests", "Build"]
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: ["Unit Tests", "Build"]
+#     types:
+#       - completed
 
 jobs:
   bump-version:
